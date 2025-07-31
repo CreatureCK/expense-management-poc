@@ -150,14 +150,14 @@
 
   // Health check endpoint
   app.get('/api/health', (req, res) => {
-    res.json({
+    console.log('Health check requested');
+    res.status(200).json({
       status: 'OK',
       timestamp: new Date().toISOString(),
-      env: {
-        hasOpenAI: !!process.env.OPENAI_API_KEY,
-        hasTabScanner: !!process.env.TABSCANNER_API_KEY
-      }
+      port: PORT
     });
+  });
+
   });
 
   // Serve the main page
@@ -165,10 +165,10 @@
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
 
-  // Start server
+ // Start server
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on port ${PORT}`);
-    console.log('Environment check:');
-    console.log('- OpenAI API Key:', !!process.env.OPENAI_API_KEY);
-    console.log('- TabScanner API Key:', !!process.env.TABSCANNER_API_KEY);
+    console.log(`=== SERVER STARTED SUCCESSFULLY ===`);
+    console.log(`Server running on http://0.0.0.0:${PORT}`);
+    console.log(`Health check: http://0.0.0.0:${PORT}/api/health`);
   });
+
