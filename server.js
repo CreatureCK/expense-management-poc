@@ -11,15 +11,6 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Rate limiting for API protection
-const rateLimit = require('express-rate-limit');
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10, // limit each IP to 10 requests per windowMs
-  message: 'Too many requests from this IP, please try again later.',
-  standardHeaders: true,
-  legacyHeaders: false,
-});
 
 // Basic security headers
 app.use((req, res, next) => {
@@ -29,8 +20,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Apply rate limiting to all requests
-app.use('/api/', limiter);
 
 // Simple access control for partners (optional)
 const ACCESS_CODE = process.env.ACCESS_CODE || null;
