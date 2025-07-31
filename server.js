@@ -44,21 +44,20 @@
       fileSize: 5 * 1024 * 1024, // 5MB limit
     },
     fileFilter: function (req, file, cb) {
-      const allowedTypes = /jpeg|jpg|png|pdf/;
-      const allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png',
+    const allowedTypes = /jpeg|jpg|png|pdf/;
+    const allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png',
   'application/pdf'];
 
-      const extname =
+    const extname =
   allowedTypes.test(path.extname(file.originalname).toLowerCase());
-      const mimetype = allowedMimeTypes.includes(file.mimetype);
+    const mimetype = allowedMimeTypes.includes(file.mimetype);
 
-      if (mimetype && extname) {
-        return cb(null, true);
-      } else {
-        cb(new Error('Only .png, .jpg, .jpeg and .pdf files are 
-  allowed!'));
-      }
+    if (mimetype && extname) {
+      return cb(null, true);
+    } else {
+      cb(new Error('Only .png, .jpg, .jpeg and .pdf files are allowed!'));
     }
+  }
   });
 
   // Simple OCR processing (placeholder)
